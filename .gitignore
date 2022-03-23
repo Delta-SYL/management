@@ -2,4 +2,5 @@ node_modules/
 dist/
 client/node_modules
 node-app/node_modules
-node-app/models/*
+# node-app/models/*
+/node-app/models/*
