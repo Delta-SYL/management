@@ -21,6 +21,7 @@ router.post("/register", (req, res) => {
             if (results != 0) { 
                 return res.status(400).json("邮箱已被注册" )
             } else {
+                console.log(req.body)
                 const user = { name: req.body.name, email: req.body.email, password: req.body.password }
                 bcrypt.genSalt(10, function(err, salt) {
                     bcrypt.hash(req.body.password, salt, (err, hash) => {
@@ -51,9 +52,9 @@ router.post("/login", (req, res) => {
             return res.status(404).json("用户不存在")
         } 
         bcrypt.compare(password, results[0].password, (err, result) => {
-            console.log(password)
+            //console.log(password)
             //console.log(JSON.parse(JSON.stringify(results)))
-            console.log(results[0].password)
+            //console.log(results[0].password)
             const rule={name:name,email:email,password:password}
             jwt.sign(rule, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
                 if (err) throw err

@@ -10,8 +10,11 @@
           label-width="80px"
           class="registerForm"
         >
-          <el-form-item label="用户名" prop="name">
-            <el-input v-model="registerUser.name" placeholder="请输入用户名"></el-input>
+          <el-form-item label="姓名" prop="name">
+            <el-input v-model="registerUser.name" placeholder="请输入姓名"></el-input>
+          </el-form-item>
+          <el-form-item label="手机号" prop="phone">
+            <el-input v-model="registerUser.phone" placeholder="请输入手机号"></el-input>
           </el-form-item>
           <el-form-item label="邮箱" prop="email">
             <el-input v-model="registerUser.email" placeholder="请输入email"></el-input>
@@ -22,12 +25,45 @@
         <el-form-item label="确认密码" prop="password2">
             <el-input type="password" v-model="registerUser.password2" placeholder="请确认密码"></el-input>
         </el-form-item>
-        <!--<el-form-item label="选择身份" prop="password2">
-            <el-select v-model="registerUser.identity" placeholder="请选择身份">
-                <el-option label="管理员" value="manager"></el-option>
-                <el-option label="住户" value="employee"></el-option>
+        <el-form-item label="身份证号" prop="idNum">
+            <el-input  v-model="registerUser.idNum" placeholder="请确认密码"></el-input>
+        </el-form-item>
+        <el-form-item label="具体位置" prop="address">
+            <el-select v-model="registerUser.building" placeholder="栋">
+                <el-option label="1" value="1"></el-option>
+                <el-option label="2" value="2"></el-option>
+                <el-option label="3" value="3"></el-option>
+                <el-option label="4" value="4"></el-option>
+                <el-option label="5" value="5"></el-option>
+                <el-option label="6" value="6"></el-option>                
             </el-select>
-        </el-form-item>-->
+            <el-select v-model="registerUser.build" placeholder="楼">
+                <el-option label="1" value="1"></el-option>
+                <el-option label="2" value="2"></el-option>
+                <el-option label="3" value="3"></el-option>
+                <el-option label="4" value="4"></el-option>
+                <el-option label="5" value="5"></el-option>
+                <el-option label="6" value="6"></el-option>
+            </el-select>
+            <el-select v-model="registerUser.room" placeholder="室">
+                <el-option label="101" value="101"></el-option>
+                <el-option label="102" value="102"></el-option>
+                <el-option label="103" value="103"></el-option>
+                <el-option label="201" value="201"></el-option>
+                <el-option label="202" value="202"></el-option>
+                <el-option label="203" value="203"></el-option>
+                <el-option label="301" value="301"></el-option>
+                <el-option label="302" value="302"></el-option>
+                <el-option label="303" value="303"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="车位类型" prop="carpark">
+            <el-select v-model="registerUser.carpark" placeholder="请选择类型">
+                <el-option label="购买" value="1"></el-option>
+                <el-option label="租借" value="2"></el-option>
+                <el-option label="没有" value="0"></el-option>
+            </el-select>
+        </el-form-item>
         <el-form-item>
             <el-button  type="primary" class="submit_btn" @click="submitForm('registerForm')">注册</el-button>
         </el-form-item>
@@ -52,16 +88,20 @@ export default {
       return{
           registerUser:{
               name:"",
+              phone:"",
               email:"",
               password:"",
               password2:"",
-              //identity:""
+              idNum:"",
+              address:"",
+              carpark:""
           },
           rules:{
               name:[{
                   required:true,message:"用户名不能为空",trigger:"blur"
-              },{
-                  min:2,max:30,message:"长度在2到30个字符串之间",trigger:"blur"
+              }],
+              phone:[{
+                required:true,message:"手机号不能为空",trigger:"blur"
               }],
               email:[{
                   type:"email",required:true,message:"邮箱格式不正确",trigger:"blur"
@@ -88,7 +128,18 @@ export default {
               },{
                 validator:validatePass2,
                 trigger:'blur'
-              }]
+              }],
+              idNum:[{
+                required:true,
+                message:"身份证号不能为空",
+                trigger:"blur"
+              }],
+              /*address:[{
+                required:true
+              }],
+              carpark:[{
+                required:true
+              }]*/
           }
       }
   },
