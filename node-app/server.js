@@ -7,6 +7,8 @@ const app = express();
 const users=require("./routes/api/users")
 const profiles=require("./routes/api/profiles")
 const repair=require("./routes/api/repair")
+const complain = require("./routes/api/complain")
+const other = require("./routes/api/other")
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -19,8 +21,11 @@ require("./config/passport")(passport)
     res.send("Hello World!")
 })*/
 app.use("/api/users", users);
-app.use("/api/profiles", profiles);
+//app.use("/api/profiles", profiles);
 app.use("/api/repair",repair)
+app.use("/api/complain", complain)
+app.use("/api/other",other)
+
 
 const port = process.env.PORT || 5000;
 

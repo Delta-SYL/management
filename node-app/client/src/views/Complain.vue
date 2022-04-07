@@ -10,7 +10,7 @@
     <div class="table_container">
         <el-table  :data="tableData" style="width: 100%"  max-height="450" border>
             <el-table-column type="index" label="序号" align="center" width="60"></el-table-column>
-            <el-table-column prop="wid" label="报修号" width="80" align="center"></el-table-column>
+            <el-table-column prop="cid" label="投诉号" width="80" align="center"></el-table-column>
             <el-table-column prop="title" label="标题" width="250" align="center"></el-table-column>
             <el-table-column prop="content" label="内容" width="500" align="center"></el-table-column>
             <el-table-column prop="flag"  label="状态" width="100" align="center"></el-table-column>
@@ -45,7 +45,7 @@ export default {
             },*/
             tableData:[],
             formData:{
-              wid:"",
+              cid:"",
               title:"",
               content:"",
               flag:"",
@@ -64,7 +64,7 @@ export default {
     },
     methods:{
         getRepair(){
-            this.$axios.post('/api/repair/test',this.$store.getters.user)
+            this.$axios.post('/api/complain/test',this.$store.getters.user)
             .then(res=>{
                 this.tableData=res.data
                 //console.log(res)
@@ -78,16 +78,16 @@ export default {
                 show:true,
                 title:"修改报修单：",
                 option:"edit",
-                type:"repair"
+                type:"complain"
             }
             this.formData={
               title:row.title,
               content:row.content,
-              wid:row.wid
+              cid:row.cid
             }
         },
         handleDelete(index,row){
-            this.$axios.post('/api/repair/delete',row)
+            this.$axios.post('/api/complain/delete',row)
             .then(res=>{
                 this.$message('删除成功')
                 this.getRepair()
@@ -98,7 +98,7 @@ export default {
                 show:true,
                 title:"创建报修单：",
                 option:"add",
-                type:"repair"
+                type:"complain"
             }
             this.formData={
                 title:'',
@@ -106,7 +106,7 @@ export default {
             }
         },
         handleConfirm(index,row){
-            this.$axios.post('/api/repair/confirm',row)
+            this.$axios.post('/api/complain/confirm',row)
             .then(res=>{
                 this.$message('已确认')
                 this.getRepair()

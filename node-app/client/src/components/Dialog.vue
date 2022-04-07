@@ -59,7 +59,7 @@ export default {
                         this.$emit('update')
                     })*/
                     if(this.dialog.option=='add'){
-                        this.$axios.post(`/api/repair/add`,this.formData)
+                        this.$axios.post(`/api/${this.dialog.type}/add`,this.formData)
                         .then(res=>{
                             this.$message({
                                 message:"数据添加成功",
@@ -70,7 +70,7 @@ export default {
                         })
                     }else if(this.dialog.option=='edit'){
                         //console.log(this.formData)
-                        this.$axios.post(`/api/repair/edit`,this.formData)
+                        this.$axios.post(`/api/${this.dialog.type}/edit`,this.formData)
                         .then(res=>{
                             this.$message({
                                 message:"数据修改成功",

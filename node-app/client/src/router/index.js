@@ -8,6 +8,8 @@ import InfoShow from '../views/InfoShow.vue'
 import FundList from '../views/FundList.vue'
 import AdminIndex from '../views/AdminIndex.vue'
 import Repair from '../views/Repair.vue'
+import Complain from '../views/Complain.vue'
+import Other from '../views/Other.vue'
 
 
 const routes = [
@@ -24,6 +26,9 @@ const routes = [
       { path: '/home', name: 'home', component: Home },
       { path: '/infoshow', name: 'infoshow', component: InfoShow },
       { path: '/repair', name: 'repair', component: Repair },
+      { path: '/complain', name: 'complain', component: Complain },
+      { path: '/other', name: 'other', component: Other },
+
     ]
   },
   {

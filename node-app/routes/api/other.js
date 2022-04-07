@@ -3,11 +3,11 @@ const express = require('express')
 const router = express.Router();
 const passport = require("passport");
 const db = require("../../models/User");
-const sqlSel = 'select * from workrepair where uid=?'
-const sqlStr='insert into workrepair set ?'
-const sqlUp = 'update workrepair set title=?,content=? where wid = ?'
-const sqlCon='update workrepair set flag=? where wid = ?'
-const sqlDel='delete from workrepair where wid= ?'
+const sqlSel = 'select * from other where uid=?'
+const sqlStr='insert into other set ?'
+const sqlUp = 'update other set title=?,content=? where oid = ?'
+const sqlCon='update other set flag=? where oid = ?'
+const sqlDel='delete from other where oid= ?'
 
 router.post('/test', (req, res) => {
     //console.log(Number(req.body.uid))
@@ -43,7 +43,7 @@ router.post('/add', (req, res) => {
     req.body.flag = 0
     //console.log(req.body)
     const date=new Date()
-    const user = { wid: null, uid: Number(req.body.uid), title: req.body.title, content: req.body.content, flag: 0 ,date:date.toLocaleDateString().replace('/','-').replace('/','-'),handleid:null}
+    const user = { oid: null, uid: Number(req.body.uid), title: req.body.title, content: req.body.content, flag: 0 ,date:date.toLocaleDateString().replace('/','-').replace('/','-'),handleid:null}
     //console.log(date.toLocaleDateString().replace('/','-').replace('/','-'))
     //console.log(user)
     db.query(sqlStr, user,(err, results) => {
@@ -52,15 +52,15 @@ router.post('/add', (req, res) => {
 })
 
 router.post('/edit', (req, res) => {
-    db.query(sqlUp,[req.body.title,req.body.content,req.body.wid],(err, results) => {
+    db.query(sqlUp,[req.body.title,req.body.content,req.body.oid],(err, results) => {
         res.json(results)
         //console.log(err)
     })
 })
 
 router.post('/confirm', (req, res) => {
-    //console.log(req.body.wid)
-    db.query(sqlCon,[3,req.body.wid],(err, results) => {
+    //console.log(req.body.oid)
+    db.query(sqlCon,[3,req.body.oid],(err, results) => {
         res.json(results)
         //console.log(err)
     })
@@ -68,7 +68,7 @@ router.post('/confirm', (req, res) => {
 
 router.post('/delete', (req, res) => {
     //console.log(req.body)
-    db.query(sqlDel, req.body.wid, (err, results) => {
+    db.query(sqlDel, req.body.oid, (err, results) => {
         res.json(results)
     })
 })
