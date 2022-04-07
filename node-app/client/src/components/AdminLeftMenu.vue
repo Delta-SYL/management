@@ -1,5 +1,5 @@
 <template>
-  <el-row class="menu_page">
+  <el-row class="admin_menu_page">
     <el-col>
       <el-menu
         active-text-color="#ffd04b"
@@ -9,6 +9,7 @@
       >
        <router-link to='/home'>
             <el-menu-item index='0'>
+                <el-icon class="fa fa-matgin fa-server"></el-icon>
                 <span slot="title">首页</span>
             </el-menu-item>
             <template v-for='item in items'>
@@ -31,18 +32,17 @@
 
 <script>
 export default {
-    name:'left-menu',
+    name:'admin-left-menu',
     data(){
         return {
             items:[
             {
                 name:'事务',
-                path:'work',
+                path:'fund',
                 children:[
-                    {path:'repair',name:'报修'},
+                    {path:'workrepair',name:'保修'},
                     {path:'complain',name:'投诉'},
                     {path:'other',name:'其他'},
-
                 ]
             },
             {

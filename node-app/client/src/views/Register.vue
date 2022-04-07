@@ -150,7 +150,7 @@ export default {
           this.$axios.post("/api/users/register",this.registerUser)
           .then(res=>{
             this.$message({
-              message:"账号注册成功",
+              message:"账号已注册,等待管理员审核",
               type:"success"
             })
           })

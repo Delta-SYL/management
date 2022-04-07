@@ -11,10 +11,14 @@ const passport = require("passport");
 router.get("/test", (req, res) => {
     res.json({msg:"login works"})
 })
-const sqlStr = 'insert into test set ?'
-const sqlSel = 'select * from test where email=?'
+//const sqlStr = 'insert into user (uid,userName,phone,email,keyword,idNum,flag) values(?,?,?,?,?,?,?)'
+const sqlStr = 'insert into user set ?'
+const sqlHou = 'insert into house set ?'
+const sqlSel = 'select * from user where phone=?'
 const sqlUp = 'update student set? where STID=?'
 const sqlDel = 'delete from student where STID=?'
+const sqlSelA = 'select * from admin where adminPhone=?'
+
 
 router.post("/register", (req, res) => {
         db.query(sqlSel, req.body.email, (err, results) => {
@@ -22,11 +26,12 @@ router.post("/register", (req, res) => {
                 return res.status(400).json("邮箱已被注册" )
             } else {
                 console.log(req.body)
-                const user = { name: req.body.name, email: req.body.email, password: req.body.password }
+                const user = {uid:null, userName: req.body.name, phone: req.body.phone*1, email: req.body.email, keyword: req.body.password, idNum: req.body.idNum, flag: 2 }
                 bcrypt.genSalt(10, function(err, salt) {
                     bcrypt.hash(req.body.password, salt, (err, hash) => {
                         if (err) throw err;
-                        user.password = hash;
+                        user.keyword = hash;
+                        console.log(user)
                         db.query(sqlStr, user, (err, results) => {
                             if (err) return console.log(err.message)
                             if (results.affectedRows === 1) {
@@ -44,31 +49,54 @@ router.post("/register", (req, res) => {
 })
 
 router.post("/login", (req, res) => {
-    const name = req.body.name;
-    const email = req.body.email;
     const password = req.body.password;
-    db.query(sqlSel, req.body.email, (err, results) => {
-        if (results == 0) {
-            return res.status(404).json("用户不存在")
-        } 
-        bcrypt.compare(password, results[0].password, (err, result) => {
-            //console.log(password)
-            //console.log(JSON.parse(JSON.stringify(results)))
-            //console.log(results[0].password)
-            const rule={name:name,email:email,password:password}
-            jwt.sign(rule, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
-                if (err) throw err
-                res.json({
-                    success: true,
-                    token:"Bearer "+token
+    const phone = req.body.phone;
+    if (req.body.type == "user") {
+        db.query(sqlSel, phone, (err, results) => {
+            if (results == 0) {
+                return res.status(404).json("用户不存在")
+            } else if (results[0].flag == 2) {
+                return res.status(404).json("等待管理员审核")
+            } else if (results[0].flag == 0) {
+                return res.status(404).json("已注销")
+            }
+            bcrypt.compare(password, results[0].keyword, (err, result) => {
+                //console.log(password)
+                //console.log(JSON.parse(JSON.stringify(results)))
+                //console.log(results[0].password)
+                const rule = { uid: results[0].uid, name: results[0].userName, phone: results[0].phone ,type:results[0].type}
+                //console.log(rule)
+                jwt.sign(rule, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+                    //console.log(token)
+                    //token=token+'1'
+                    //var a = token.charAt(token.length - 1)
+                    //console.log(a)
+                    if (err) throw err
+                    res.json({
+                        success: true,
+                        token: "Bearer " + token
+                    })
                 })
-            })
-            //if (result) res.json({ msg: "success" })
-           // else return res.status(400).json({password:"密码错误"})
+                //if (result) res.json({ msg: "success" })
+                // else return res.status(400).json({password:"密码错误"})
 
-        });
-    })
-
+            });
+        })
+    } else {
+        db.query(sqlSelA, phone, (err, results) => {
+            if (password == results[0].keyword) {
+                const rule = { adId: results[0].adId, adminName: results[0].adminName, adminPhone: results[0].adminPhone ,type:results[0].type}
+                console.log(rule)
+                jwt.sign(rule, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+                    if (err) throw err
+                    res.json({
+                        success: true,
+                        token: "Bearer " + token
+                    })
+                })
+            }
+        })
+    }
 })
 
 router.get("/current", passport.authenticate("jwt",{session:false}),(req, res) => {

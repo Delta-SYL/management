@@ -6,17 +6,11 @@
             :close-on-press-escape='false'>
             <div class="form">
                 <el-form ref="form" :model="formData" :rules="form_rules" label-width="120px" style="margin:10px;width:auto">
-                    <el-form-item label="收支类型：">
-                        <el-select v-model="formData.type" placeholder="收支类型">
-                            <el-option v-for="(formtype,index) in format_type_list" :key="index" :label="formtype" :value="formtype">
-                            </el-option>
-                        </el-select>
+                    <el-form-item prop="title" label="标题：">
+                        <el-input  v-model="formData.title"></el-input>
                     </el-form-item>
-                    <el-form-item prop="money" label="金额：">
-                        <el-input type="money" v-model="formData.money"></el-input>
-                    </el-form-item>
-                    <el-form-item prop="other" label="其他：">
-                        <el-input type="textarea" v-model="formData.other"></el-input>
+                    <el-form-item prop="content" label="内容：">
+                        <el-input type="textarea" v-model="formData.content"></el-input>
                     </el-form-item>
                     <el-form-item class="text_right">
                         <el-button @click="dialog.show=false">取消</el-button>
@@ -25,7 +19,7 @@
                 </el-form>
             </div>
         </el-dialog>
-    </div>
+    </div>      
 </template>
 
 <script>
@@ -33,15 +27,12 @@ export default {
     name:'dialog',
     data(){
       return{
-          
-          format_type_list:[
-              '水费',
-              '电费',
-              '煤气'
-          ],
           form_rules:{
-              money:[
-                  { required: true, message: "金额不能为空！", trigger: "blur" }
+              title:[
+                  { required: true, message: "标题不能为空！", trigger: "blur" }
+              ],
+              content:[
+                  { required: true, message: "内容不能为空！", trigger: "blur" }
               ]
           }
       }  
@@ -53,10 +44,12 @@ export default {
     methods:{
         onSubmit(form){
             this.$refs[form].validate(valid=>{
+                //console.log(this.formData)
+                this.formData.uid=this.$store.getters.user.uid
                 if(valid){
-                    const url=this.dialog.option=='add'?'add':'edit'
+                    /*const url=this.dialog.option=='add'?'add':'edit'
                     //console.log(this.formData)
-                    this.$axios.post(`/api/profiles/${url}`,this.formData)
+                    this.$axios.post(`/api/repair/${url}`,this.formData)
                     .then(res=>{
                         this.$message({
                             message:"数据添加成功",
@@ -64,7 +57,29 @@ export default {
                         })
                         this.dialog.show=false
                         this.$emit('update')
-                    })
+                    })*/
+                    if(this.dialog.option=='add'){
+                        this.$axios.post(`/api/repair/add`,this.formData)
+                        .then(res=>{
+                            this.$message({
+                                message:"数据添加成功",
+                                type:"success"
+                            })
+                            this.dialog.show=false
+                            this.$emit('update')
+                        })
+                    }else if(this.dialog.option=='edit'){
+                        //console.log(this.formData)
+                        this.$axios.post(`/api/repair/edit`,this.formData)
+                        .then(res=>{
+                            this.$message({
+                                message:"数据修改成功",
+                                type:"success"
+                            })
+                            this.dialog.show=false
+                            this.$emit('update')
+                        })
+                    }
                 }
             })
         }

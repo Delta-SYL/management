@@ -6,6 +6,8 @@ import NotFound from '../views/404.vue'
 import Home from '../views/Home.vue'
 import InfoShow from '../views/InfoShow.vue'
 import FundList from '../views/FundList.vue'
+import AdminIndex from '../views/AdminIndex.vue'
+import Repair from '../views/Repair.vue'
 
 
 const routes = [
@@ -21,8 +23,7 @@ const routes = [
       { path: '', component: Home },
       { path: '/home', name: 'home', component: Home },
       { path: '/infoshow', name: 'infoshow', component: InfoShow },
-      { path: '/fundlist', name: 'fundlist', component: FundList },
-
+      { path: '/repair', name: 'repair', component: Repair },
     ]
   },
   {
@@ -34,6 +35,12 @@ const routes = [
     path: '/login',
     name: 'login',
     component:Login
+  },
+  {
+    path: '/adminindex',
+    name: 'adminindex',
+    component:AdminIndex,
+
   },
   {
     path: '/:pathMatch(.*)*',
@@ -50,11 +57,20 @@ const router = createRouter({
 
 router.beforeEach((to, from, next)=> {
   const isLogin = localStorage.eleToken ? true : false
+  //const isLoginA = localStorage.eleTokena ? true : false
+  //console.log(localStorage)
   if (to.path == "/login" || to.path == "/register") {
     next()
+  }
+  else {
+    isLogin ? next() : next("/login")
+    //isLogin ? next() : next("/login")
+  }
+  /*if (isLoginA) {
+    next('/indexa')
   } else {
     isLogin ? next() : next("/login")
-  }
+  }*/
 })
 
 export default router

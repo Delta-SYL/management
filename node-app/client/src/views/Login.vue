@@ -5,15 +5,22 @@
                 <span class="title">物业管理系统</span>
             </div>
             <el-form :model="loginUser" :rules="rules" ref="loginForm" class="loginForm" label-width="60px">
-                <el-form-item label="邮箱" prop="email">
-                    <el-input v-model="loginUser.email" placeholder="请输入邮箱"></el-input>
+                <el-form-item label="账号" prop="phone">
+                    <el-input v-model="loginUser.phone" placeholder="请输入手机号"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
                     <el-input v-model="loginUser.password" placeholder="请输入密码" type="password"></el-input>
                 </el-form-item>
+                <el-form-item label="类型" prop="type">
+                  <el-select v-model="loginUser.type" placeholder="请选择类型">
+                    <el-option label="户主" value="user"></el-option>
+                    <el-option label="管理员" value="admin"></el-option>
+                  </el-select>
+                </el-form-item>
                 <el-form-item>
                     <el-button type="primary"  @click="submitForm('loginForm')" class="submit_btn">登  录</el-button>
                 </el-form-item>
+
                 <div class="tiparea">
                     <p>还没有账号？现在<router-link to='/register'>注册</router-link></p>
                 </div>
@@ -29,15 +36,15 @@ export default {
   data() {
     return {
       loginUser: {
-        email: "",
-        password: ""
+        phone: "",
+        password: "",
+        type:""
       },
       rules: {
-        email: [
+        phone: [
           {
-            type: "email",
             required: true,
-            message: "邮箱格式不正确",
+            message:"手机号不能为空",
             trigger: "blur"
           }
         ],
@@ -51,22 +58,36 @@ export default {
     methods:{
     submitForm(formName){
       this.$refs[formName].validate(valid=>{
-        if(valid){
+        //console.log(formName)
+        //console.log(valid)
+        //console.log(this.loginUser)
+       if(valid){
           this.$axios.post("/api/users/login",this.loginUser)
           .then(res=>{
             //console.log(res)
             const{token}=res.data
-            //存储到ls
+            //console.log(this.loginUser)
+            //console.log(this.loginUser.type)
             localStorage.setItem("eleToken",token)
-            //存储到token
             const decoded=jwt_decode(token)
+            //存储到ls
+            if(this.loginUser.type=='user'){
+            this.$store.dispatch('setAuthenticated',!this.isEmpty(decoded))
+            this.$store.dispatch('setUser',decoded)
+            this.$router.push('/index')
+            }else{
+              //localStorage.setItem("eleTokena",token)
+            this.$store.dispatch('setAuthenticated',!this.isEmpty(decoded))
+            this.$store.dispatch('setUser',decoded)
+            this.$router.push('/adminindex')
+            }
+            //存储到token
+            /*const decoded=jwt_decode(token)
            // console.log(decoded)
            //token存储到vuex
             this.$store.dispatch('setAuthenticated',!this.isEmpty(decoded))
             this.$store.dispatch('setUser',decoded)
-
-            this.$router.push('/index')
-
+            this.$router.push('/index')*/
           })
         }
       })

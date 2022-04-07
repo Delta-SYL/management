@@ -10,7 +10,7 @@
                     <img src="../assets/320.png" class="avatar" alt="">
                     <div class="welcome">
                         <p class="name comename">欢迎</p>
-                        <p class="name avatarname">{{user.name}}</p>
+                        <p class="name avatarname">{{user.adminName}}</p>
                     </div>
                     <span class="username">
                         <el-dropdown trigger="click" @command="setDialogInfo">
@@ -21,7 +21,7 @@
                             </span>
                             <template #dropdown>
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item command="info">个人信息</el-dropdown-item>
+                                <el-dropdown-item command="info">修改密码</el-dropdown-item>
                                 <el-dropdown-item command="logout">退出</el-dropdown-item>
                             </el-dropdown-menu>
                             </template>

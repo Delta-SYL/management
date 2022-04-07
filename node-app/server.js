@@ -6,6 +6,8 @@ const app = express();
 
 const users=require("./routes/api/users")
 const profiles=require("./routes/api/profiles")
+const repair=require("./routes/api/repair")
+
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -18,6 +20,7 @@ require("./config/passport")(passport)
 })*/
 app.use("/api/users", users);
 app.use("/api/profiles", profiles);
+app.use("/api/repair",repair)
 
 const port = process.env.PORT || 5000;
 
