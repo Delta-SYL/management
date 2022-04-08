@@ -33,7 +33,7 @@
 <script>
 import Dialog from '../components/Dialog.vue';
 export default {
-    name:'fundList',
+    //name:'fundList',
     data(){
         return{
             /*paginations:{

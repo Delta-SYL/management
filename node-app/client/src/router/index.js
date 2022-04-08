@@ -10,7 +10,7 @@ import AdminIndex from '../views/AdminIndex.vue'
 import Repair from '../views/Repair.vue'
 import Complain from '../views/Complain.vue'
 import Other from '../views/Other.vue'
-
+import HouseHold from '../views/HouseHold.vue'
 
 const routes = [
   {
@@ -28,6 +28,7 @@ const routes = [
       { path: '/repair', name: 'repair', component: Repair },
       { path: '/complain', name: 'complain', component: Complain },
       { path: '/other', name: 'other', component: Other },
+      { path: '/household', name: 'household', component: HouseHold },
 
     ]
   },

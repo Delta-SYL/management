@@ -49,7 +49,8 @@ export default {
                 name:'信息管理',
                 path:'info',
                 children:[
-                    {path:'infoshow',name:'个人信息'}
+                    {path:'infoshow',name:'个人信息'},
+                    {path:'household',name:'同住住户'}
                 ]
             },
             ]
@@ -76,7 +77,7 @@ export default {
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 180px;
-  min-height: 400px;
+  min-height: 800px;
 }
 .el-menu-vertical-demo {
   width: 35px;

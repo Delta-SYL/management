@@ -11,13 +11,14 @@ import store from './store'
 
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-import { ArrowDownBold ,CloseBold} from '@element-plus/icons-vue'
+import { ArrowDownBold ,CloseBold,UserFilled} from '@element-plus/icons-vue'
 const app = createApp(App)
 app.use(store)
 app.use(router)
 app.use(ElementPlus)
 app.component('ArrowDownBold', ArrowDownBold)
-app.component('CloseBold',CloseBold)
+app.component('CloseBold', CloseBold)
+app.component('UserFilled',UserFilled)
 app.config.globalProperties.$axios=axios
 app.mount('#app')
 
