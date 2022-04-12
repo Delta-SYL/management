@@ -60,7 +60,7 @@ export default {
 
 
 <style scoped>
-.menu_page {
+.admin_menu_page {
   position: fixed;
   top: 71px;
   left: 0;
@@ -76,7 +76,7 @@ export default {
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 180px;
-  min-height: 400px;
+  min-height: 800px;
 }
 .el-menu-vertical-demo {
   width: 35px;

@@ -27,8 +27,23 @@
         </el-form-item>
         <el-form-item label="身份证号" prop="idNum">
             <el-input  v-model="registerUser.idNum" placeholder="请确认密码"></el-input>
+        </el-form-item><br>
+        <el-form-item label="房产证">
+        <el-upload drag multiple list-type="picture-card" style="font-size: 60px;" :on-change="imgBroadcastChange" :on-remove="imgBroadcastRemove">
+          <el-icon class="el-icon--upload" style="font-size: 45px;"><upload-filled /></el-icon>
+          <div class="el-upload__text">
+            图片上传至这里或<em>点击以上传</em>
+          </div>
+          <div class="el-upload__tip">
+            jpg/png格式小于10M
+          </div>
+        </el-upload>
+        <el-dialog v-model="dialogVisible">
+          <img w-full :src="dialogImageUrl" alt="Preview Image" />
+        </el-dialog>
         </el-form-item>
-        <el-form-item label="具体位置" prop="address">
+  <br>
+        <!--<el-form-item label="具体位置" prop="address">
             <el-select v-model="registerUser.building" placeholder="栋">
                 <el-option label="1" value="1"></el-option>
                 <el-option label="2" value="2"></el-option>
@@ -63,7 +78,7 @@
                 <el-option label="租借" value="2"></el-option>
                 <el-option label="没有" value="0"></el-option>
             </el-select>
-        </el-form-item>
+        </el-form-item>-->
         <el-form-item>
             <el-button  type="primary" class="submit_btn" @click="submitForm('registerForm')">注册</el-button>
         </el-form-item>
@@ -201,4 +216,5 @@ export default {
 .submit_btn {
   width: 100%;
 }
+
 </style>

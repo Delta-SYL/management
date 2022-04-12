@@ -18,6 +18,9 @@ const sqlSel = 'select * from user where phone=?'
 const sqlUp = 'update student set? where STID=?'
 const sqlDel = 'delete from student where STID=?'
 const sqlSelA = 'select * from admin where adminPhone=?'
+const sqlAllUser = 'select * from user where uid=?'
+const sqlAllAdd = 'select * from house where uid=?'
+const sqlAllCar = 'select * from carpark where uid=?'
 
 
 router.post("/register", (req, res) => {
@@ -105,6 +108,31 @@ router.get("/current", passport.authenticate("jwt",{session:false}),(req, res) =
         name: req.user.name,
         email: req.user.email,
         
+    })
+})
+
+router.post("/allinfo", (req, res) => {
+    
+    db.query(sqlAllUser, req.body.uid, (err, results) => {
+        db.query(sqlAllAdd, req.body.uid, (err, result) => {
+            //console.log(result[0].address)
+            results[0].address=parseInt(result[0].address/1000000)+' 栋 '+parseInt(result[0].address/1000%1000)+' 号楼 '+parseInt(result[0].address%1000)+' 室'
+            //console.log(a)
+            results[0].area=result[0].area+' m²'
+            //console.log(results[0])
+            
+            db.query(sqlAllCar, req.body.uid, (err, resultc) => {
+               // console.log(res[0])
+                if (resultc[0].size == 1) {
+                    results[0].carpark='购买'
+                } else if(rresultces[0].size == 2){
+                    results[0].carpark='租赁'
+                } else {
+                    results[0].carpark='无'
+                }
+                res.json(results[0])
+            })
+        })
     })
 })
 

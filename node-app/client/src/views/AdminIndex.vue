@@ -1,6 +1,7 @@
 <template>
     <div class="adminindex">
         <AdminHeadNav></AdminHeadNav>
+        <AdminLeftMenu></AdminLeftMenu>
         <div class="rightContainer">
         <router-view></router-view>
         </div>

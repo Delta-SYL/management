@@ -11,6 +11,7 @@ import Repair from '../views/Repair.vue'
 import Complain from '../views/Complain.vue'
 import Other from '../views/Other.vue'
 import HouseHold from '../views/HouseHold.vue'
+import Pay from '../views/Pay.vue'
 
 const routes = [
   {
@@ -29,7 +30,7 @@ const routes = [
       { path: '/complain', name: 'complain', component: Complain },
       { path: '/other', name: 'other', component: Other },
       { path: '/household', name: 'household', component: HouseHold },
-
+      { path: '/pay', name: 'pay', component: Pay },
     ]
   },
   {

@@ -39,10 +39,10 @@ export default {
                 name:'事务',
                 path:'work',
                 children:[
+                    {path:'pay',name:'缴费'},
                     {path:'repair',name:'报修'},
                     {path:'complain',name:'投诉'},
                     {path:'other',name:'其他'},
-
                 ]
             },
             {

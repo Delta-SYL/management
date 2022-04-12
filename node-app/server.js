@@ -10,7 +10,7 @@ const repair=require("./routes/api/repair")
 const complain = require("./routes/api/complain")
 const other = require("./routes/api/other")
 const household=require("./routes/api/household")
-
+const pay=require("./routes/api/pay")
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -27,7 +27,7 @@ app.use("/api/repair",repair)
 app.use("/api/complain", complain)
 app.use("/api/other", other)
 app.use("/api/household",household)
-
+app.use("/api/pay",pay)
 
 const port = process.env.PORT || 5000;
 

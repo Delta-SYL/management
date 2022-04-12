@@ -8,7 +8,7 @@
         </el-form>
     </div>
     <div class="table_container">
-        <el-table  :data="tableData" style="width: 100%"  max-height="450" border>
+        <el-table stripe :data="tableData" style="width: 100%"  max-height="450" border>
             <el-table-column type="index" label="序号" align="center" width="60"></el-table-column>
             <el-table-column prop="cid" label="投诉号" width="80" align="center"></el-table-column>
             <el-table-column prop="title" label="标题" width="250" align="center"></el-table-column>
