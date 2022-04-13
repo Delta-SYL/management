@@ -27,23 +27,8 @@
         </el-form-item>
         <el-form-item label="身份证号" prop="idNum">
             <el-input  v-model="registerUser.idNum" placeholder="请确认密码"></el-input>
-        </el-form-item><br>
-        <el-form-item label="房产证">
-        <el-upload drag multiple list-type="picture-card" style="font-size: 60px;" :on-change="imgBroadcastChange" :on-remove="imgBroadcastRemove">
-          <el-icon class="el-icon--upload" style="font-size: 45px;"><upload-filled /></el-icon>
-          <div class="el-upload__text">
-            图片上传至这里或<em>点击以上传</em>
-          </div>
-          <div class="el-upload__tip">
-            jpg/png格式小于10M
-          </div>
-        </el-upload>
-        <el-dialog v-model="dialogVisible">
-          <img w-full :src="dialogImageUrl" alt="Preview Image" />
-        </el-dialog>
         </el-form-item>
-  <br>
-        <!--<el-form-item label="具体位置" prop="address">
+        <el-form-item label="具体位置" prop="address">
             <el-select v-model="registerUser.building" placeholder="栋">
                 <el-option label="1" value="1"></el-option>
                 <el-option label="2" value="2"></el-option>
@@ -78,7 +63,21 @@
                 <el-option label="租借" value="2"></el-option>
                 <el-option label="没有" value="0"></el-option>
             </el-select>
-        </el-form-item>-->
+        </el-form-item>
+        <el-form-item label="房产证" >
+        <el-upload drag multiple :auto-upload="false" list-type="picture-card" style="font-size: 60px;" :on-change="imgBroadcastChange" :on-remove="imgBroadcastRemove" accept="image/jpg,image/png,image/jpeg">
+          <el-icon class="el-icon--upload" style="font-size: 30px;"><upload-filled /></el-icon>
+          <div style="margin:1%" class="el-upload__text">
+            图片上传至这里或<em>点击以上传</em>
+          </div>
+        </el-upload>
+          <div class="el-upload__tip">
+            jpg/png格式小于10M
+          </div>
+        <el-dialog v-model="dialogVisible">
+          <img w-full :src="dialogImageUrl" alt="Preview Image" />
+        </el-dialog>
+        </el-form-item>
         <el-form-item>
             <el-button  type="primary" class="submit_btn" @click="submitForm('registerForm')">注册</el-button>
         </el-form-item>
@@ -109,13 +108,14 @@ export default {
               password2:"",
               idNum:"",
               address:"",
-              carpark:""
+              carpark:"",
+              pic:""
           },
           rules:{
               name:[{
                   required:true,message:"用户名不能为空",trigger:"blur"
               }],
-              phone:[{
+              /*phone:[{
                 required:true,message:"手机号不能为空",trigger:"blur"
               }],
               email:[{
@@ -149,7 +149,7 @@ export default {
                 message:"身份证号不能为空",
                 trigger:"blur"
               }],
-              /*address:[{
+             address:[{
                 required:true
               }],
               carpark:[{
@@ -176,7 +176,16 @@ export default {
           return false;
         }
       })
+    },
+    imgBroadcastChange (file) {
+    const isLt2M = file.size / 1024 / 1024 < 10 // 上传头像图片大小不能超过 2MB
+    if (!isLt2M) {
+     //this.diaLogForm.imgBroadcastList = fileList.filter(v => v.uid !== file.uid)
+     this.$message.error('图片选择失败，每张图片大小不能超过 2MB,请重新选择!')
+    } else {
+     this.registerUser.pic=file.name
     }
+   },
   }
 };
 </script>
@@ -214,7 +223,15 @@ export default {
 }
 
 .submit_btn {
-  width: 100%;
+  width: 80%;
 }
-
+/deep/ .el-upload{
+  width: 70%;
+  height: 70%;
+}
+/deep/ .el-upload-dragger{
+  width: 100%;
+  height: 50%;
+  line-height: 20px;
+}
 </style>

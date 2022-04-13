@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 const db = require("../../models/User");
 const keys = require("../../config/keys");
 const passport = require("passport");
+var fs=require('fs')
 router.get("/test", (req, res) => {
     res.json({msg:"login works"})
 })
@@ -21,33 +22,57 @@ const sqlSelA = 'select * from admin where adminPhone=?'
 const sqlAllUser = 'select * from user where uid=?'
 const sqlAllAdd = 'select * from house where uid=?'
 const sqlAllCar = 'select * from carpark where uid=?'
-
-
+const sqlAddH='insert into house set ?'
+const sqlAddC='insert into carpark set ?'
 router.post("/register", (req, res) => {
-        db.query(sqlSel, req.body.email, (err, results) => {
+    //console.log(req.body)
+    //return res.status(400).json("邮箱已被注册" )
+        db.query(sqlSel, req.body.phone, (err, results) => {
             if (results != 0) { 
-                return res.status(400).json("邮箱已被注册" )
+                return res.status(400).json("手机号已被注册" )
             } else {
-                console.log(req.body)
+                //console.log(req.body)
                 const user = {uid:null, userName: req.body.name, phone: req.body.phone*1, email: req.body.email, keyword: req.body.password, idNum: req.body.idNum, flag: 2 }
                 bcrypt.genSalt(10, function(err, salt) {
                     bcrypt.hash(req.body.password, salt, (err, hash) => {
                         if (err) throw err;
                         user.keyword = hash;
-                        console.log(user)
+                        //console.log(user)
                         db.query(sqlStr, user, (err, results) => {
                             if (err) return console.log(err.message)
                             if (results.affectedRows === 1) {
                                 console.log('成功')
                                 //console.log(results)
-                                res.json(user) 
+                                //res.json(user) 
+                                db.query(sqlSel, req.body.phone, (err, resultp) => {
+                                    //console.log(resultp[0])
+                                    var area = req.body.room % 10 * 5 % 15 + 60
+                                    var address = req.body.building * 1000000 + req.body.build * 1000 + req.body.room * 1
+                                    //console.log(req.body.pic) 
+                                    db.query(sqlAddH, {addid:null,address:address, uid:resultp[0].uid,area:area,pic:req.body.pic}, (err,resulth)=> {
+                                        db.query(sqlAddC, {cpid:null, uid: resultp[0].uid, size: req.body.carpark * 1 }, (err, resultc) => {
+                                            var picr = 'C:\\Users\\Delta\\Desktop\\论文\\待传图片\\' + req.body.pic
+                                            var picw = 'C:\\Users\\Delta\\Desktop\\论文\\已传图片\\' + req.body.pic
+                                            fs.readFile(picr, (err, data) => {
+                                                if (err) console.log('读取失败')
+                                                else {
+                                                    fs.writeFile(picw, data, (err) => {
+                                                        if (err) console.log('保存失败')
+                                                        //else console.log('保存成功')
+                                                    })
+                                                }
+                                            })
+                                            res.json(user) 
+                                        })
+                                    })
+                                })
                             }
                         })
                     });
                 });
             }
-            
         })
+
 
 })
 
@@ -125,7 +150,7 @@ router.post("/allinfo", (req, res) => {
                // console.log(res[0])
                 if (resultc[0].size == 1) {
                     results[0].carpark='购买'
-                } else if(rresultces[0].size == 2){
+                } else if(resultc[0].size == 2){
                     results[0].carpark='租赁'
                 } else {
                     results[0].carpark='无'
