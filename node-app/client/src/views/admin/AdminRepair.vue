@@ -42,7 +42,7 @@
             <el-table-column prop="date"  label="发布日期" width="130" align="center"></el-table-column>
             <el-table-column align="center"  width=100 label="操作">
             <template #default="scope">
-                <el-button type="warning" size="small" @click="handleEditi(scope.$index, scope.row)">编辑</el-button>
+                <el-button type="warning" size="small" @click="handleEditi(scope.$index, scope.row)">查看</el-button>
             </template>
             </el-table-column>
         </el-table>
@@ -74,7 +74,7 @@
             <el-table-column prop="date"  label="发布日期" width="130" align="center"></el-table-column>
             <el-table-column align="center"  width=100 label="操作">
             <template #default="scope">
-                <el-button type="warning" size="small" @click="handleEditc(scope.$index, scope.row)">编辑</el-button>
+                <el-button type="warning" size="small" @click="handleEditc(scope.$index, scope.row)">查看</el-button>
             </template>
             </el-table-column>
         </el-table>
@@ -140,7 +140,7 @@ export default {
               flag:"",
               date:"",
               handleid:"",
-              money:""
+              money:"",
             },
             dialog:{
                 show:false,
@@ -154,6 +154,7 @@ export default {
     },
     methods:{
         getRepair(){
+            //console.log(this.$store.getters.user)
             this.$axios.post('/api/adminrepair/selw',this.$store.getters.user)
             .then(res=>{
                 this.allTableDataw=res.data
@@ -245,8 +246,8 @@ export default {
             this.dialog={
                 show:true,
                 title:"待处理报修事务：",
-                option:"edit",
-                type:"repair"
+                option:"wait",
+                type:"adminrepair"
             }
             this.formData={
               title:row.title,
@@ -263,8 +264,8 @@ export default {
             this.dialog={
                 show:true,
                 title:"处理中报修事务：",
-                option:"edit",
-                type:"repair"
+                option:"processing",
+                type:"adminrepair"
             }
             this.formData={
               title:row.title,
@@ -281,8 +282,8 @@ export default {
             this.dialog={
                 show:true,
                 title:"已完成报修事务：",
-                option:"edit",
-                type:"repair"
+                option:"complete",
+                type:"adminrepair"
             }
             this.formData={
               title:row.title,

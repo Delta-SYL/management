@@ -26,7 +26,7 @@
                     </el-form-item>
                     <el-form-item class="text_right">
                         <el-button @click="dialog.show=false">取消</el-button>
-                        <el-button type="primary" @click="onSubmit('form')">提交</el-button>
+                        <el-button type="primary" @click="onSubmit('form')">处理</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -48,24 +48,23 @@ export default {
         onSubmit(form){
             this.$refs[form].validate(valid=>{
                 //console.log(this.formData)
-                this.formData.uid=this.$store.getters.user.uid
+                this.formData.adId=this.$store.getters.user.adId
                 if(valid){
-                    if(this.dialog.option=='add'){
-                        this.$axios.post(`/api/${this.dialog.type}/add`,this.formData)
+                    if(this.dialog.option=='wait'){
+                        this.$axios.post(`/api/${this.dialog.type}/wait`,this.formData)
                         .then(res=>{
                             this.$message({
-                                message:"数据添加成功",
+                                message:"处理中",
                                 type:"success"
                             })
                             this.dialog.show=false
                             this.$emit('update')
                         })
-                    }else if(this.dialog.option=='edit'){
-                        //console.log(this.formData)
-                        this.$axios.post(`/api/${this.dialog.type}/edit`,this.formData)
+                    }else if(this.dialog.option=='processing'){
+                        this.$axios.post(`/api/${this.dialog.type}/processing`,this.formData)
                         .then(res=>{
                             this.$message({
-                                message:"数据修改成功",
+                                message:"处理中",
                                 type:"success"
                             })
                             this.dialog.show=false

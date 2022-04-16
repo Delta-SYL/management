@@ -13,7 +13,7 @@ router.post('/test', (req, res) => {
     //console.log(Number(req.body.uid))
     db.query(sqlSel, Number(req.body.uid), (err, results) => {
         //console.log(req.body)
-        console.log(results[0].flag)
+        //console.log(results[0].flag)
         for (var i = results.length - 1; i >= 0; i--){
             switch (results[i].flag) {
                 case 0:
