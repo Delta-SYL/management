@@ -65,7 +65,11 @@
             </el-select>
         </el-form-item>
         <el-form-item label="房产证" >
-        <el-upload drag multiple :auto-upload="false" list-type="picture-card" style="font-size: 60px;" :on-change="imgBroadcastChange" :on-remove="imgBroadcastRemove" accept="image/jpg,image/png,image/jpeg">
+        <el-upload drag multiple :auto-upload="false" list-type="picture-card" style="font-size: 60px;" 
+        :on-change="imgBroadcastChange" :on-remove="imgBroadcastRemove" 
+        accept="image/jpg,image/png,image/jpeg" 
+        :token="headerMsg"
+        :uid="uploaduid">
           <el-icon class="el-icon--upload" style="font-size: 30px;"><upload-filled /></el-icon>
           <div style="margin:1%" class="el-upload__text">
             图片上传至这里或<em>点击以上传</em>
@@ -88,6 +92,7 @@
 </template>
 
 <script>
+ import { uploadImgToBase64 } from '../utils' // 导入本地图片转base64的方法
 export default {
   name: "register",
   components: {},
@@ -109,7 +114,8 @@ export default {
               idNum:"",
               address:"",
               carpark:"",
-              pic:""
+              pic:"",
+              imgstr:""
           },
           rules:{
               name:[{
@@ -155,7 +161,7 @@ export default {
               carpark:[{
                 required:true
               }]*/
-          }
+          },
       }
   },
   methods:{
@@ -184,7 +190,19 @@ export default {
      this.$message.error('图片选择失败，每张图片大小不能超过 2MB,请重新选择!')
     } else {
      this.registerUser.pic=file.name
+     this.submitDialogData(file)
     }
+   },
+   async submitDialogData (file) {
+    const imgBroadcastListBase64 = []
+    console.log('图片转base64开始...')
+    // 并发 转码轮播图片list => base64
+
+     imgBroadcastListBase64.push(await uploadImgToBase64(file.raw))
+
+    console.log('图片转base64结束..., ')
+    this.registerUser.imgstr = imgBroadcastListBase64[0].result
+
    },
   }
 };

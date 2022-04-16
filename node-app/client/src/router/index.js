@@ -6,12 +6,14 @@ import NotFound from '../views/404.vue'
 import Home from '../views/Home.vue'
 import InfoShow from '../views/InfoShow.vue'
 import FundList from '../views/FundList.vue'
-import AdminIndex from '../views/AdminIndex.vue'
+import AdminIndex from '../views/admin/AdminIndex.vue'
 import Repair from '../views/Repair.vue'
 import Complain from '../views/Complain.vue'
 import Other from '../views/Other.vue'
 import HouseHold from '../views/HouseHold.vue'
 import Pay from '../views/Pay.vue'
+import AdminHome from '../views/admin/AdminHome.vue'
+import AdminRepair from '../views/admin/AdminRepair.vue'
 
 const routes = [
   {
@@ -23,7 +25,8 @@ const routes = [
     name: 'index',
     component: Index,
     children: [
-      { path: '', component: Home },
+     // { path: '', component: Home },
+      { path: '/index', redirect: '/home' },
       { path: '/home', name: 'home', component: Home },
       { path: '/infoshow', name: 'infoshow', component: InfoShow },
       { path: '/repair', name: 'repair', component: Repair },
@@ -47,7 +50,12 @@ const routes = [
     path: '/adminindex',
     name: 'adminindex',
     component:AdminIndex,
-
+    children: [
+     // { path: '', component: AdminHome },
+     { path: '/adminindex', redirect: '/adminhome' },
+      { path: '/adminhome', name: 'adminhome', component: AdminHome },
+      { path: '/adminrepair', name: 'adminrepair', component: AdminRepair },
+    ]
   },
   {
     path: '/:pathMatch(.*)*',

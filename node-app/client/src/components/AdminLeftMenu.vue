@@ -7,7 +7,7 @@
         class="el-menu-vertical-demo"
         text-color="#fff"
       >
-       <router-link to='/home'>
+       <router-link to='/adminhome'>
             <el-menu-item index='0'>
                 <el-icon class="fa fa-matgin fa-server"></el-icon>
                 <span slot="title">首页</span>
@@ -40,7 +40,7 @@ export default {
                 name:'事务',
                 path:'fund',
                 children:[
-                    {path:'workrepair',name:'保修'},
+                    {path:'adminrepair',name:'保修'},
                     {path:'complain',name:'投诉'},
                     {path:'other',name:'其他'},
                 ]

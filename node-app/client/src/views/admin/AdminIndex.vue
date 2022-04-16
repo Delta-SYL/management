@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import AdminHeadNav from '../components/AdminHeadNav.vue'
-import AdminLeftMenu from '../components/AdminLeftMenu.vue'
+import AdminHeadNav from '../../components/AdminHeadNav.vue'
+import AdminLeftMenu from '../../components/AdminLeftMenu.vue'
 export default ({
     name:'adminindex',
     components :{

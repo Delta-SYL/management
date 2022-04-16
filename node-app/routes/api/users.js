@@ -51,7 +51,7 @@ router.post("/register", (req, res) => {
                                     //console.log(req.body.pic) 
                                     db.query(sqlAddH, {addid:null,address:address, uid:resultp[0].uid,area:area,pic:req.body.pic}, (err,resulth)=> {
                                         db.query(sqlAddC, {cpid:null, uid: resultp[0].uid, size: req.body.carpark * 1 }, (err, resultc) => {
-                                            var picr = 'C:\\Users\\Delta\\Desktop\\论文\\待传图片\\' + req.body.pic
+                                            /*var picr = 'C:\\Users\\Delta\\Desktop\\论文\\待传图片\\' + req.body.pic
                                             var picw = 'C:\\Users\\Delta\\Desktop\\论文\\已传图片\\' + req.body.pic
                                             fs.readFile(picr, (err, data) => {
                                                 if (err) console.log('读取失败')
@@ -61,7 +61,18 @@ router.post("/register", (req, res) => {
                                                         //else console.log('保存成功')
                                                     })
                                                 }
-                                            })
+                                            })*/
+                                            const base64 = req.body.imgstr.replace(/^data:image\/\w+;base64,/, "");
+                                            console.log(req.body.pic)
+                                            const path = 'C:\\Users\\Delta\\Desktop\\论文\\已传图片\\'+req.body.pic;
+                                             fs.writeFile(path, base64, 'base64', function (err) {
+                                                 if (err) {
+                                                     console.log(err);
+                                                 } else {
+                                                     console.log('写入成功！', path);
+                                                 }
+                                             });
+
                                             res.json(user) 
                                         })
                                     })
@@ -72,8 +83,6 @@ router.post("/register", (req, res) => {
                 });
             }
         })
-
-
 })
 
 router.post("/login", (req, res) => {

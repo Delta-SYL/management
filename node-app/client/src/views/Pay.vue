@@ -15,7 +15,23 @@
             </template>
             </el-table-column>
         </el-table>
-
+        <el-row>
+        <el-col :span='24'>
+        <div class="pagination">
+        <el-pagination
+            :currentPage.sync="paginations.page_index"
+            :page-size="paginations.page_size"
+            :small="small"
+            :disabled="disabled"
+            :background="background"
+            :layout="paginations.layout"
+            :total="paginations.total"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+        />
+        </div>
+        </el-col>
+        </el-row>
     </div>
     <Dialog :dialog="dialog" :formData="formData" @update="getRepair"></Dialog>
     </div>
@@ -27,7 +43,14 @@ export default {
     //name:'fundList',
     data(){
         return{
+            paginations:{
+                page_index:1,
+                total:0,
+                page_size:5,
+                layout:'total, prev, pager, next, jumper'
+            },
             tableData:[],
+            allTableData:[],
             formData:{
               pid:"",
               payment:"",
@@ -49,10 +72,20 @@ export default {
         getRepair(){
             this.$axios.post('/api/pay/test',this.$store.getters.user)
             .then(res=>{
-                this.tableData=res.data
+                this.allTableData=res.data
+                this.setPaginations()
                 //console.log(res)
             })
             .catch(err=>console.log(err))
+        },
+        setPaginations(){
+            this.paginations.total=this.allTableData.length
+            this.paginations.page_index=1
+            this.paginations.page_size=5
+            this.tableData=this.allTableData.filter((item,index)=>{
+                //console.log(index)
+                return index<this.paginations.page_size
+            })
         },
         handleRead(index,row){
             //console.log(index)
@@ -71,6 +104,25 @@ export default {
                 this.$message('已缴费')
                 this.getRepair()
             })
+        },
+        /*handleSizeChange(page_size){
+            this.paginations.page_index=1
+            this.paginations.page_size=page_size
+            this.tableData=this.allTableData.filter((item,index)=>{
+                return index<page_size
+            })
+        },*/
+        handleCurrentChange(page){
+            let index=this.paginations.page_size*(page-1)
+            let nums=this.paginations.page_size*page
+            let tables=[]
+            for(let i=index;i<nums;i++){
+                if(this.allTableData[i]){
+                    tables.push(this.allTableData[i])
+                }
+                this.tableData=tables
+                this.paginations.page_index=page
+            }
         }
     },
     components:{
@@ -91,6 +143,12 @@ export default {
 }
 .table_container{
     margin-top: 2%;
+}
+.pagination{
+    width: 400px;
+    text-align: right;
+    margin-top: 10px;
+     float:right;
 }
 </style>
 
