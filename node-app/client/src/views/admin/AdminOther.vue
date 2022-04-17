@@ -5,7 +5,7 @@
     <p>待处理</p>
     <div class="table_container">
         <el-table stripe :data="tableDataw" style="width: 100%"  max-height="450" border>
-            <el-table-column prop="wid" label="报修号" width="80" align="center"></el-table-column>
+            <el-table-column prop="oid" label="其他事务工单号" width="80" align="center"></el-table-column>
             <el-table-column prop="title" label="标题" width="260" align="center"></el-table-column>
             <el-table-column prop="date"  label="发布日期" width="130" align="center"></el-table-column>
             <el-table-column align="center"  width=100 label="操作">
@@ -37,7 +37,7 @@
     <p>处理中</p>
     <div class="table_container">
         <el-table stripe :data="tableDatai" style="width: 100%"  max-height="450" border>
-            <el-table-column prop="wid" label="报修号" width="80" align="center"></el-table-column>
+            <el-table-column prop="oid" label="其他事务工单号" width="80" align="center"></el-table-column>
             <el-table-column prop="title" label="标题" width="260" align="center"></el-table-column>
             <el-table-column prop="date"  label="发布日期" width="130" align="center"></el-table-column>
             <el-table-column align="center"  width=100 label="操作">
@@ -69,7 +69,7 @@
     <p>已完成</p>
     <div class="table_container">
         <el-table stripe :data="tableDatac" style="width: 100%"  max-height="450" border>
-            <el-table-column prop="wid" label="报修号" width="80" align="center"></el-table-column>
+            <el-table-column prop="oid" label="其他事务工单号" width="80" align="center"></el-table-column>
             <el-table-column prop="title" label="标题" width="260" align="center"></el-table-column>
             <el-table-column prop="date"  label="发布日期" width="130" align="center"></el-table-column>
             <el-table-column align="center"  width=100 label="操作">
@@ -155,21 +155,21 @@ export default {
     methods:{
         getRepair(){
             //console.log(this.$store.getters.user)
-            this.$axios.post('/api/adminrepair/selw',this.$store.getters.user)
+            this.$axios.post('/api/adminother/selw',this.$store.getters.user)
             .then(res=>{
                 this.allTableDataw=res.data
                 this.setPaginations()
                 //console.log(res)
             })
             .catch(err=>console.log(err))
-            this.$axios.post('/api/adminrepair/seli',this.$store.getters.user)
+            this.$axios.post('/api/adminother/seli',this.$store.getters.user)
             .then(res=>{
                 this.allTableDatai=res.data
                 this.setPaginationsi()
                 //console.log(res)
             })
             .catch(err=>console.log(err))
-            this.$axios.post('/api/adminrepair/selc',this.$store.getters.user)
+            this.$axios.post('/api/adminother/selc',this.$store.getters.user)
             .then(res=>{
                 this.allTableDatac=res.data
                 this.setPaginationsc()
@@ -245,14 +245,14 @@ export default {
             //console.log(row)
             this.dialog={
                 show:true,
-                title:"待处理报修事务：",
+                title:"待处理其他事务：",
                 option:"wait",
-                type:"adminrepair"
+                type:"adminother"
             }
             this.formData={
               title:row.title,
               content:row.content,
-              id:row.wid,
+              id:row.oid,
               date:row.date,
               uid:row.uid,
               money:row.money
@@ -265,12 +265,12 @@ export default {
                 show:true,
                 title:"处理中报修事务：",
                 option:"processing",
-                type:"adminrepair"
+                type:"adminother"
             }
             this.formData={
               title:row.title,
               content:row.content,
-              id:row.wid,
+              id:row.oid,
               date:row.date,
               uid:row.uid,
               money:row.money
@@ -281,26 +281,19 @@ export default {
             //console.log(row)
             this.dialog={
                 show:true,
-                title:"已完成报修事务：",
+                title:"已完成其他事务：",
                 option:"complete",
-                type:"adminrepair"
+                type:"adminother"
             }
             this.formData={
               title:row.title,
               content:row.content,
-              id:row.wid,
+              id:row.oid,
               date:row.date,
               uid:row.uid,
               money:row.money
             }
         },
-        handleConfirm(index,row){
-            this.$axios.post('/api/repair/confirm',row)
-            .then(res=>{
-                this.$message('已确认')
-                this.getRepair()
-            })
-        }
     },
     components:{
         Dialog

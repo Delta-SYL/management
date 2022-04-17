@@ -37,12 +37,12 @@ export default {
         return {
             items:[
             {
-                name:'事务',
+                name:'事务', 
                 path:'fund',
                 children:[
                     {path:'adminrepair',name:'保修'},
-                    {path:'complain',name:'投诉'},
-                    {path:'other',name:'其他'},
+                    {path:'admincomplain',name:'投诉'},
+                    {path:'adminother',name:'其他'},
                 ]
             },
             {

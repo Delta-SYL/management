@@ -3,12 +3,12 @@ const express = require('express')
 const router = express.Router();
 const passport = require("passport");
 const db = require("../../models/User");
-const sqlSelw = 'select * from workrepair where flag = 0'
-const sqlSeli = 'select * from workrepair where flag = 1 or flag =2'
-const sqlSelc = 'select * from workrepair where flag = 3'
-const sqlUp = 'update workrepair set flag=? ,handleid=? where wid = ?'
-const sqlUpp='update workrepair set flag=?,handleid=?,money=? where wid = ?'
-const sqlAdId='select * from workrepair where wid=?'
+const sqlSelw = 'select * from other where flag = 0'
+const sqlSeli = 'select * from other where flag = 1 or flag =2'
+const sqlSelc = 'select * from other where flag = 3'
+const sqlStr='insert into other set ?'
+const sqlUp = 'update other set flag=? ,handleid=? where oid = ?'
+const sqlUpp='update other set flag=?,handleid=?,money=? where oid = ?'
 
 router.post('/selw', (req, res) => {
     //console.log(req.body)
@@ -21,6 +21,7 @@ router.post('/selw', (req, res) => {
         res.json(results);
     })
 })
+
 router.post('/seli', (req, res) => {
     //console.log(req.body)
     db.query(sqlSeli, (err, results) => {
@@ -44,6 +45,18 @@ router.post('/selc', (req, res) => {
     })
 })
 
+router.post('/add', (req, res) => {
+    req.body.flag = 0
+    //console.log(req.body)
+    const date=new Date()
+    const user = { oid: null, uid: Number(req.body.uid), title: req.body.title, content: req.body.content, flag: 0 ,date:date.toLocaleDateString().replace('/','-').replace('/','-'),handleid:null}
+    //console.log(date.toLocaleDateString().replace('/','-').replace('/','-'))
+    //console.log(user)
+    db.query(sqlStr, user,(err, results) => {
+        res.json(results)
+    })
+})
+
 router.post('/wait', (req, res) => {
     //console.log(req.body.adId)
     db.query(sqlUp,[1,req.body.adId,req.body.id],(err, results) => {
@@ -51,15 +64,23 @@ router.post('/wait', (req, res) => {
         //console.log(err)
     })
 })
+const sqlAdId='select * from other where oid=?'
 router.post('/processing', (req, res) => {
     db.query(sqlAdId, req.body.id, (err, result) => {
         var handleid = result[0].handleid + req.body.adId * 1000
-        //console.log(req.body.wid)
+        //console.log(req.body.oid)
         //console.log(handleid)
         db.query(sqlUpp,[2,handleid,req.body.money,req.body.id],(err, results) => {
             res.json(results)
             //console.log(err)
         })
+    })
+})
+
+router.post('/delete', (req, res) => {
+    //console.log(req.body)
+    db.query(sqlDel, req.body.id, (err, results) => {
+        res.json(results)
     })
 })
 

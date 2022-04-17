@@ -12,6 +12,9 @@ const other = require("./routes/api/other")
 const household=require("./routes/api/household")
 const pay = require("./routes/api/pay")
 const adminrepair=require("./routes/api/adminrepair")
+const adminother = require("./routes/api/adminother")
+const admincomplain = require("./routes/api/admincomplain")
+const notice=require("./routes/api/notice")
 
 //app.use(bodyParser.urlencoded({ extended: false }))
 //app.use(bodyParser.json())
@@ -33,6 +36,9 @@ app.use("/api/other", other)
 app.use("/api/household",household)
 app.use("/api/pay", pay)
 app.use("/api/adminrepair",adminrepair)
+app.use("/api/adminother", adminother)
+app.use("/api/admincomplain", admincomplain)
+app.use("/api/notice",notice)
 
 const port = process.env.PORT || 5000;
 

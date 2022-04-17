@@ -6,8 +6,8 @@
             :close-on-press-escape='false'>
             <div class="form">
                 <el-form ref="form" :model="formData" label-width="120px" style="margin:10px;width:auto">
-                    <el-form-item prop="wid" label="报修单号：">
-                        <el-input  v-model="formData.wid"></el-input>
+                    <el-form-item prop="id" label="工单号：">
+                        <el-input  v-model="formData.id"></el-input>
                     </el-form-item>
                     <el-form-item prop="uid" label="住户编号：">
                         <el-input  v-model="formData.uid"></el-input>
@@ -64,7 +64,7 @@ export default {
                         this.$axios.post(`/api/${this.dialog.type}/processing`,this.formData)
                         .then(res=>{
                             this.$message({
-                                message:"处理中",
+                                message:"等待户主确认",
                                 type:"success"
                             })
                             this.dialog.show=false

@@ -35,7 +35,12 @@
 
             </el-col>
             <el-col :span='12'>
-  <el-input v-model="input" disabled placeholder="Please input" />
+              <p class="picinfo">房产证</p>
+              <div class="pictype">
+                <el-image  v-if="this.path" style="width: 80%"  :src="require('C:/Users/Delta/Desktop/论文/已传图片/'+this.path)" fit="fill">
+                  <div class="image-slot">Loading<span class="dot">...</span></div>
+                </el-image>
+                </div>
             </el-col>
         </el-row>
     </div>
@@ -48,6 +53,7 @@ export default{
     data(){
       return{
         formData:[],
+        path:''
       }
     },
     created(){
@@ -58,10 +64,15 @@ export default{
         this.$axios.post('/api/users/allinfo',this.$store.getters.user)
             .then(res=>{
                 this.formData=res.data
-                //console.log(res)
+                //console.log(this.formData.pic)
+                this.path=res.data.pic
+                console.log(this.path)
             })
             .catch(err=>console.log(err))
-      }
+      },
+      	getpath(path){
+		      return require('C:/Users/Delta/Desktop/论文/已传图片/'+path)
+	      }
     }
 }
 </script>
@@ -133,6 +144,13 @@ export default{
 }
 .test{
   width: 100px;
+}
+.pictype{
+  margin-top: 100px;
+}
+.picinfo{
+  margin-top: 5%;
+  font-size: 30px; 
 }
 </style>
 

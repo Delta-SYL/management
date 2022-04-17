@@ -154,7 +154,8 @@ router.post("/allinfo", (req, res) => {
             //console.log(a)
             results[0].area=result[0].area+' m²'
             //console.log(results[0])
-            
+            results[0].pic=result[0].pic
+            //console.log(result[0])
             db.query(sqlAllCar, req.body.uid, (err, resultc) => {
                // console.log(res[0])
                 if (resultc[0].size == 1) {
@@ -166,6 +167,8 @@ router.post("/allinfo", (req, res) => {
                 }
                 res.json(results[0])
             })
+            //res.json(1)
+ 
         })
     })
 })

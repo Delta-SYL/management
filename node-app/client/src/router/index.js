@@ -14,7 +14,8 @@ import HouseHold from '../views/HouseHold.vue'
 import Pay from '../views/Pay.vue'
 import AdminHome from '../views/admin/AdminHome.vue'
 import AdminRepair from '../views/admin/AdminRepair.vue'
-
+import AdminOther from '../views/admin/AdminOther.vue'
+import AdminComplain from '../views/admin/AdminComplain.vue'
 const routes = [
   {
     path: '/',
@@ -55,6 +56,8 @@ const routes = [
      { path: '/adminindex', redirect: '/adminhome' },
       { path: '/adminhome', name: 'adminhome', component: AdminHome },
       { path: '/adminrepair', name: 'adminrepair', component: AdminRepair },
+      { path: '/admincomplain', name: 'admincomplain', component: AdminComplain },
+      { path: '/adminother', name: 'adminother', component: AdminOther },
     ]
   },
   {

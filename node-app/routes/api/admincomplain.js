@@ -3,12 +3,12 @@ const express = require('express')
 const router = express.Router();
 const passport = require("passport");
 const db = require("../../models/User");
-const sqlSelw = 'select * from workrepair where flag = 0'
-const sqlSeli = 'select * from workrepair where flag = 1 or flag =2'
-const sqlSelc = 'select * from workrepair where flag = 3'
-const sqlUp = 'update workrepair set flag=? ,handleid=? where wid = ?'
-const sqlUpp='update workrepair set flag=?,handleid=?,money=? where wid = ?'
-const sqlAdId='select * from workrepair where wid=?'
+const sqlSelw = 'select * from complain where flag = 0'
+const sqlSeli = 'select * from complain where flag = 1 or flag =2'
+const sqlSelc = 'select * from complain where flag = 3'
+const sqlUp = 'update complain set flag=? ,handleid=? where cid = ?'
+const sqlUpp='update complain set flag=?,handleid=? where cid = ?'
+const sqlAdId='select * from complain where cid=?'
 
 router.post('/selw', (req, res) => {
     //console.log(req.body)
@@ -54,9 +54,7 @@ router.post('/wait', (req, res) => {
 router.post('/processing', (req, res) => {
     db.query(sqlAdId, req.body.id, (err, result) => {
         var handleid = result[0].handleid + req.body.adId * 1000
-        //console.log(req.body.wid)
-        //console.log(handleid)
-        db.query(sqlUpp,[2,handleid,req.body.money,req.body.id],(err, results) => {
+        db.query(sqlUpp,[2,handleid,req.body.id],(err, results) => {
             res.json(results)
             //console.log(err)
         })
