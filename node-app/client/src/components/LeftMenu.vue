@@ -3,7 +3,7 @@
     <el-col>
       <el-menu
         active-text-color="#ffd04b"
-        background-color="#545c64"
+        background-color="#918081"
         class="el-menu-vertical-demo"
         text-color="#fff"
       >
@@ -63,10 +63,9 @@ export default {
 <style scoped>
 .menu_page {
   position: fixed;
-  top: 71px;
   left: 0;
   min-height: 100%;
-  background-color: #324057;
+  background-color: #918081;
   z-index: 99;
 }
 .el-menu {

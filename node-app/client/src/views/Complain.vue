@@ -12,7 +12,7 @@
             <el-table-column type="index" label="序号" align="center" width="60"></el-table-column>
             <el-table-column prop="cid" label="投诉号" width="80" align="center"></el-table-column>
             <el-table-column prop="title" label="标题" width="250" align="center"></el-table-column>
-            <el-table-column prop="content" label="内容" width="500" align="center"></el-table-column>
+            <el-table-column prop="content" label="内容" width="650" align="center"></el-table-column>
             <el-table-column prop="flag"  label="状态" width="100" align="center"></el-table-column>
             <el-table-column prop="date"  label="发布日期" width="140" align="center"></el-table-column>
             <el-table-column prop="handleid"  label="受理人员编号" width="200" align="center"></el-table-column>

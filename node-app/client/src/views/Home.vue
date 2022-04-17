@@ -5,7 +5,7 @@
         </div>
         <el-row>
             <el-col :span='14'>
-              <p class="notice">公告</p>
+              <p class="notice">最新公告</p>
                 <el-card class="box-card">
                 <span class="spantitle">{{noticetitle}}</span> 
                 <hr style="width:70%;color:blue" >
@@ -14,7 +14,7 @@
                 </el-card>
             </el-col>
             <el-col :span='10'>
-              <p class="notice">往期公告</p>
+              <p class="noticeb">往期公告</p>
                 <div class="table">
             <el-table stripe :data="tableData" style="width: 95%"  max-height="450" border>
             <el-table-column type="index" label="序号" align="center" width="60"></el-table-column>
@@ -181,9 +181,9 @@ export default {
 }
 .container {
   width: 100%;
-  height: 25%;
+  height: 20%;
   box-sizing: border-box;
-  padding-top: 100px;
+  padding-top: 80px;
   background-color: rgba(245, 245, 245, 0.7);
   text-align: center;
   color: white;
@@ -199,8 +199,15 @@ export default {
 }
 .notice{
   margin-top: 5%;
-  margin-left: 7%;
+  margin-left: 6%;
   font-size: 40px;
+  font-family:宋体;
+}
+.noticeb{
+  margin-top: 5%;
+  margin-left: 1%;
+  font-size: 40px;
+  font-family:宋体;
 }
 .table{
   margin-top: 5%;

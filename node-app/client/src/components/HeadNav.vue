@@ -2,8 +2,10 @@
     <header class="head-nav">
         <el-row>
             <el-col :span="12" class="logo-container">
+              <div style="margin-left:20px;margin-top:10px">
                 <img src="../assets/management.webp" class="logo" alt="">
                 <span class="title">物业管理系统</span>
+              </div>
             </el-col>
             <el-col :span="12" class="user">
                 <div class="userinfo">
@@ -71,10 +73,10 @@ export default {
 <style scoped>
 .head-nav {
   width: 100%;
-  height: 60px;
+  height: 80px;
   min-width: 600px;
   padding: 5px;
-  background: #2d4975;
+  background: #154599;
   color: #fff;
   border-bottom: 1px solid #1f2d3d;
 }
