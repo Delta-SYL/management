@@ -4,7 +4,7 @@
         <div class="userinfo">
             住户信息
         </div>
-        <el-table stripe :data="tableData" style="width: 100%"  max-height="450" border>
+        <el-table stripe :data="tableData" style="width: 100%"  max-height="500" border>
             <el-table-column type="index" label="序号" align="center" width="60"></el-table-column>
             <el-table-column prop="uid" label="户主编号" width="100" align="center"></el-table-column>
             <el-table-column prop="userName" label="姓名" width="250" align="center"></el-table-column>
@@ -33,7 +33,7 @@
         </el-col>
         </el-row>
     </div>
-    <Dialog :dialog="dialog" :formData="formData" @update="getRepair"></Dialog>
+    <Dialog :dialog="dialog" :formData="formData" :path="path" @update="getRepair"></Dialog>
     </div>
 </template>
 
@@ -45,12 +45,13 @@ export default {
             paginations:{
                 page_index:1,
                 total:0,
-                page_size:5,
+                page_size:10,
                 layout:'total, prev, pager, next, jumper'
             },
+            path:'',
             tableData:[],
             allTableData:[],
-            formData:{},
+            formData:[],
             dialog:{
                 show:false,
                 title:'',
@@ -66,7 +67,7 @@ export default {
             this.$axios.post('/api/adminuser/test',this.$store.getters.user)
             .then(res=>{
                 this.allTableData=res.data
-                //console.log(res.data)
+                //console.log(this.allTableData)
                 this.setPaginations()
                 //console.log(res)
             })
@@ -75,7 +76,7 @@ export default {
         setPaginations(){
             this.paginations.total=this.allTableData.length
             this.paginations.page_index=1
-            this.paginations.page_size=5
+            this.paginations.page_size=10
             this.tableData=this.allTableData.filter((item,index)=>{
                 //console.log(index)
                 return index<this.paginations.page_size
@@ -94,21 +95,44 @@ export default {
             }
         },
         handleEdit(index,row){
-
+            /* this.dialog={
+                show:true,
+                title:"同住人信息及房产证：",
+                option:"edit",
+                type:"complain"
+                }
+            this.formData={
+              liveName:row.uid,
+              idNum:row.userName,
+              relationship:row.phone
+            }*/
             this.$axios.post('/api/adminuser/check',row)
             .then(res=>{
                // this.$message('删除成功')
                //console.log(res)
-               this.formData=res.data
-               console.log(this.formData)
+               //this.formData=res.data
+               //console.log(res.data[0].liveName)
                //console.log(this.allTableData)
                 //this.getRepair()
+                /*this.formData={
+                liveName:res.data[0].liveName,
+                idNum:row.userName,
+                relationship:row.phone
+                }*/
+                //this.formData=res.data
+                /*this.formData={
+                    liveName:44
+                }*/
+                this.formData=res.data
+                this.formData.uid=row.uid
+                this.path=res.data.pic
+                console.log(this.path)
                 this.dialog={
                 show:true,
                 title:"同住人信息及房产证：",
                 option:"edit",
                 type:"complain"
-            }
+                }
             }) 
             
         },

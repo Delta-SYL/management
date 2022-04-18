@@ -70,9 +70,7 @@ export default{
             })
             .catch(err=>console.log(err))
       },
-      	getpath(path){
-		      return require('C:/Users/Delta/Desktop/论文/已传图片/'+path)
-	      }
+
     }
 }
 </script>

@@ -4,9 +4,9 @@ const { EUCKR_BIN } = require('mysql/lib/protocol/constants/charsets');
 const router = express.Router();
 const passport = require("passport");
 const db = require("../../models/User");
-const sqlSel = 'select * from user where flag=0 or flag=1'
+const sqlSel = 'select * from user'
 const sqlStr='insert into other set ?'
-const sqlUp = 'update other set title=?,content=? where oid = ?'
+const sqlUp = 'update user set flag=1 where uid = ?'
 const sqlCon='update other set flag=? where oid = ?'
 const sqlDel='update user set flag=0 where uid=?'
 
@@ -24,7 +24,7 @@ router.post('/test', (req, res) => {
                     results[i].flag = '登记'
                     break;  
                 default:
-                    results[i].flag='aa'
+                    results[i].flag='待审核'
             }
         }
         res.json(results);
@@ -35,8 +35,14 @@ const sqlHouseHold = 'select * from household where uid = ?'
 const sqlCar = 'select * from carpark where uid = ?'
 const sqlHouse='select * from house where uid = ?'
 router.post('/check', (req, res) => {
-    //console.log(req.body.uid)
+    //console.log(req.body.uid) 
+    var a = {liveName: '',address:'',area:'',pic:'',size:'',cpid:''}
     db.query(sqlHouseHold, req.body.uid, (err, results) => {
+        //res.json(results)
+        for (var i = results.length - 1; i >= 0; i--){
+            results[i].liveName = '姓名：' + results[i].liveName + ' 身份证号：' + results[i].idNum + ' 与户主关系：' + results[i].relationship
+            a.liveName=a.liveName+results[i].liveName+'\n'
+        }
         db.query(sqlCar, req.body.uid, (err, result) => {
             switch (result[0].size) {
                 case 1:
@@ -48,13 +54,15 @@ router.post('/check', (req, res) => {
                 default:
                     result[0].size='没有'
             }
+            a.size = result[0].size
+            a.cpid = result[0].cpid
             results.push(result[0])
             //console.log(results)
             db.query(sqlHouse, req.body.uid, (err, resul) => {
-                resul[0].address = parseInt(resul[0].address / 1000000) + ' 幢 ' + parseInt(resul[0].address / 1000 % 1000) + ' 栋 ' + parseInt(resul[0].address % 1000) + ' 室'
-                results.push(resul[0])
-                //console.log(results)
-                res.json(results)
+                a.address = parseInt(resul[0].address / 1000000) + ' 幢 ' + parseInt(resul[0].address / 1000 % 1000) + ' 栋 ' + parseInt(resul[0].address % 1000) + ' 室'
+                a.area = resul[0].area + ' m²'
+                a.pic = resul[0].pic
+                res.json(a)
             })
         })
         
@@ -62,8 +70,8 @@ router.post('/check', (req, res) => {
     })
 })
 
-router.post('/edit', (req, res) => {
-    db.query(sqlUp,[req.body.title,req.body.content,req.body.oid],(err, results) => {
+router.post('/add', (req, res) => {
+    db.query(sqlUp,[req.body.uid],(err, results) => {
         res.json(results)
         //console.log(err)
     })
