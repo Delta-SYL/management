@@ -40,6 +40,7 @@ export default {
                 name:'事务', 
                 path:'fund',
                 children:[
+                    {path:'adminnotice',name:'公告'},
                     {path:'adminrepair',name:'保修'},
                     {path:'admincomplain',name:'投诉'},
                     {path:'adminother',name:'其他'},
@@ -49,7 +50,9 @@ export default {
                 name:'信息管理',
                 path:'info',
                 children:[
-                    {path:'infoshow',name:'个人信息'}
+                    {path:'adminuserinfo',name:'住户信息'},
+                    {path:'adminhouse',name:'住房信息'},
+                    {path:'admincar',name:'车位信息'}
                 ]
             },
             ]

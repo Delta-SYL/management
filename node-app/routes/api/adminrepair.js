@@ -9,7 +9,7 @@ const sqlSelc = 'select * from workrepair where flag = 3'
 const sqlUp = 'update workrepair set flag=? ,handleid=? where wid = ?'
 const sqlUpp='update workrepair set flag=?,handleid=?,money=? where wid = ?'
 const sqlAdId='select * from workrepair where wid=?'
-
+ 
 router.post('/selw', (req, res) => {
     //console.log(req.body)
     db.query(sqlSelw, (err, results) => {

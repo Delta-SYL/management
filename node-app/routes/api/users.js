@@ -150,7 +150,7 @@ router.post("/allinfo", (req, res) => {
     db.query(sqlAllUser, req.body.uid, (err, results) => {
         db.query(sqlAllAdd, req.body.uid, (err, result) => {
             //console.log(result[0].address)
-            results[0].address=parseInt(result[0].address/1000000)+' 栋 '+parseInt(result[0].address/1000%1000)+' 号楼 '+parseInt(result[0].address%1000)+' 室'
+            results[0].address=parseInt(result[0].address/1000000)+' 幢 '+parseInt(result[0].address/1000%1000)+' 栋 '+parseInt(result[0].address%1000)+' 室'
             //console.log(a)
             results[0].area=result[0].area+' m²'
             //console.log(results[0])

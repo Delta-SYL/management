@@ -16,6 +16,11 @@ import AdminHome from '../views/admin/AdminHome.vue'
 import AdminRepair from '../views/admin/AdminRepair.vue'
 import AdminOther from '../views/admin/AdminOther.vue'
 import AdminComplain from '../views/admin/AdminComplain.vue'
+import AdminUserInfo from '../views/admin/AdminUserInfo.vue'
+import AdminHouse from '../views/admin/AdminHouse.vue'
+import AdminCar from '../views/admin/AdminCar.vue'
+import AdminNotice from '../views/admin/AdminNotice.vue'
+
 const routes = [
   {
     path: '/',
@@ -58,6 +63,11 @@ const routes = [
       { path: '/adminrepair', name: 'adminrepair', component: AdminRepair },
       { path: '/admincomplain', name: 'admincomplain', component: AdminComplain },
       { path: '/adminother', name: 'adminother', component: AdminOther },
+      { path: '/adminuserinfo', name: 'adminuserinfo', component: AdminUserInfo },
+      { path: '/adminhouse', name: 'adminhouse', component: AdminHouse },
+      { path: '/admincar', name: 'admincar', component: AdminCar },
+      { path: '/adminnotice', name: 'adminnotice', component: AdminNotice },
+
     ]
   },
   {
