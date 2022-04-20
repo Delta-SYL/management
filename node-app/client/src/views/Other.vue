@@ -10,7 +10,7 @@
     <div class="table_container">
         <el-table stripe  :data="tableData" style="width: 100%"  max-height="450" border>
             <el-table-column type="index" label="序号" align="center" width="60"></el-table-column>
-            <el-table-column prop="oid" label="投诉号" width="80" align="center"></el-table-column>
+            <el-table-column prop="oid" label="事务号" width="80" align="center"></el-table-column>
             <el-table-column prop="title" label="标题" width="250" align="center"></el-table-column>
             <el-table-column prop="content" label="内容" width="600" align="center"></el-table-column>
             <el-table-column prop="flag"  label="状态" width="100" align="center"></el-table-column>

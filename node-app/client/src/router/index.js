@@ -20,7 +20,7 @@ import AdminUserInfo from '../views/admin/AdminUserInfo.vue'
 import AdminHouse from '../views/admin/AdminHouse.vue'
 import AdminCar from '../views/admin/AdminCar.vue'
 import AdminNotice from '../views/admin/AdminNotice.vue'
-
+import AdminPay from '../views/admin/AdminPay.vue'
 const routes = [
   {
     path: '/',
@@ -67,6 +67,7 @@ const routes = [
       { path: '/adminhouse', name: 'adminhouse', component: AdminHouse },
       { path: '/admincar', name: 'admincar', component: AdminCar },
       { path: '/adminnotice', name: 'adminnotice', component: AdminNotice },
+      { path: '/adminpay', name: 'adminpay', component: AdminPay },
 
     ]
   },

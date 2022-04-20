@@ -4,7 +4,7 @@
         <div class="carinfo">
             车位信息
         </div>
-        <el-table stripe :data="tableData" style="width: 100%"  max-height="450" border>
+        <el-table stripe :data="tableData" style="width: 100%"  max-height="500" border>
             <el-table-column type="index" label="序号" align="center" width="100px"></el-table-column>
             <el-table-column prop="cpid" label="车位编号" width="300px" align="center"></el-table-column>
             <el-table-column prop="uid" label="住户编号" width="350px" align="center"></el-table-column>
@@ -12,7 +12,7 @@
             <el-table-column width="500px"></el-table-column>
             <el-table-column align="center" fixed="right" width="200px" label="操作">
             <template #default="scope">
-                <el-button size="small" type="danger" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+                <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
                 <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
             </template>
             </el-table-column>
@@ -43,7 +43,7 @@ export default {
             paginations:{
                 page_index:1,
                 total:0,
-                page_size:5,
+                page_size:10,
                 layout:'total, prev, pager, next, jumper'
             },
             dialog:{
@@ -72,7 +72,7 @@ export default {
         setPaginations(){
             this.paginations.total=this.allTableData.length
             this.paginations.page_index=1
-            this.paginations.page_size=5
+            this.paginations.page_size=10
             this.tableData=this.allTableData.filter((item,index)=>{
                 //console.log(index)
                 return index<this.paginations.page_size

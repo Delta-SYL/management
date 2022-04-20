@@ -5,7 +5,6 @@ const passport = require("passport");
 const app = express();
 
 const users=require("./routes/api/users")
-const profiles=require("./routes/api/profiles")
 const repair=require("./routes/api/repair")
 const complain = require("./routes/api/complain")
 const other = require("./routes/api/other")
@@ -18,22 +17,14 @@ const notice = require("./routes/api/notice")
 const adminuser =require("./routes/api/adminuser")
 const adminhouse = require("./routes/api/adminhouse")
 const admincar = require("./routes/api/admincar")
-const adminnotice =require("./routes/api/adminnotice")
-
-//app.use(bodyParser.urlencoded({ extended: false }))
-//app.use(bodyParser.json())
+const adminnotice = require("./routes/api/adminnotice")
+const adminpay=require("./routes/api/adminpay")
 
 app.use(bodyParser.json({limit: '50mb'}));//使能 post 50mb以下的数据
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-
 app.use(passport.initialize())
 require("./config/passport")(passport)
-
-/*app.get("/", (req, res) => {
-    res.send("Hello World!")
-})*/
 app.use("/api/users", users);
-//app.use("/api/profiles", profiles);
 app.use("/api/repair",repair)
 app.use("/api/complain", complain)
 app.use("/api/other", other)
@@ -46,7 +37,8 @@ app.use("/api/notice", notice)
 app.use("/api/adminuser", adminuser)
 app.use("/api/adminhouse", adminhouse)
 app.use("/api/admincar", admincar)
-app.use("/api/adminnotice",adminnotice)
+app.use("/api/adminnotice", adminnotice)
+app.use("/api/adminpay", adminpay)
 
 const port = process.env.PORT || 5000;
 
@@ -54,4 +46,3 @@ app.listen(port, () => {
     console.log(`Server running on port ${port} http://localhost:5000`);
 })
 
-//module.exports = db

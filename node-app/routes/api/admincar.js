@@ -1,10 +1,8 @@
 const { json } = require('body-parser');
 const express = require('express')
 const router = express.Router();
-const passport = require("passport");
 const db = require("../../models/User");
 const sqlSel = 'select * from carpark'
-const sqlDel='update carpark set size=0 where cpid=?'
 
 router.post('/test', (req, res) => {
     db.query(sqlSel, (err, result) => {
@@ -29,9 +27,11 @@ router.post('/test', (req, res) => {
 }
 )
 
+const sqlDel='update carpark set size=0 ,uid=0 where cpid=?'
+
 router.post('/delete', (req, res) => {
-    //console.log(req.body)
-    db.query(sqlDel, req.body.addid, (err, results) => {
+    
+   db.query(sqlDel, req.body.cpid, (err, results) => {
         res.json(results)
     })
 })

@@ -40,8 +40,9 @@ export default {
                 name:'事务', 
                 path:'fund',
                 children:[
+                    {path:'adminpay',name:'缴费'},
                     {path:'adminnotice',name:'公告'},
-                    {path:'adminrepair',name:'保修'},
+                    {path:'adminrepair',name:'报修'},
                     {path:'admincomplain',name:'投诉'},
                     {path:'adminother',name:'其他'},
                 ]

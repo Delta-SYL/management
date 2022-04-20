@@ -92,7 +92,7 @@
 </template>
 
 <script>
- import { uploadImgToBase64 } from '../utils' // 导入本地图片转base64的方法
+ import { uploadImgToBase64 } from '../utils' 
 export default {
   name: "register",
   components: {},
@@ -121,7 +121,7 @@ export default {
               name:[{
                   required:true,message:"用户名不能为空",trigger:"blur"
               }],
-              /*phone:[{
+              phone:[{
                 required:true,message:"手机号不能为空",trigger:"blur"
               }],
               email:[{
@@ -160,7 +160,7 @@ export default {
               }],
               carpark:[{
                 required:true
-              }]*/
+              }]
           },
       }
   },
@@ -184,10 +184,9 @@ export default {
       })
     },
     imgBroadcastChange (file) {
-    const isLt2M = file.size / 1024 / 1024 < 10 // 上传头像图片大小不能超过 2MB
+    const isLt2M = file.size / 1024 / 1024 < 10 
     if (!isLt2M) {
-     //this.diaLogForm.imgBroadcastList = fileList.filter(v => v.uid !== file.uid)
-     this.$message.error('图片选择失败，每张图片大小不能超过 2MB,请重新选择!')
+     this.$message.error('图片选择失败，每张图片大小不能超过 10MB,请重新选择!')
     } else {
      this.registerUser.pic=file.name
      this.submitDialogData(file)
@@ -196,13 +195,9 @@ export default {
    async submitDialogData (file) {
     const imgBroadcastListBase64 = []
     console.log('图片转base64开始...')
-    // 并发 转码轮播图片list => base64
-
      imgBroadcastListBase64.push(await uploadImgToBase64(file.raw))
-
     console.log('图片转base64结束..., ')
     this.registerUser.imgstr = imgBroadcastListBase64[0].result
-
    },
   }
 };

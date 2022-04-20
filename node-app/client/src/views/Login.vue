@@ -20,7 +20,6 @@
                 <el-form-item>
                     <el-button type="primary"  @click="submitForm('loginForm')" class="submit_btn">登  录</el-button>
                 </el-form-item>
-
                 <div class="tiparea">
                     <p>还没有账号？现在<router-link to='/register'>注册</router-link></p>
                 </div>
@@ -58,36 +57,21 @@ export default {
     methods:{
     submitForm(formName){
       this.$refs[formName].validate(valid=>{
-        //console.log(formName)
-        //console.log(valid)
-        //console.log(this.loginUser)
        if(valid){
           this.$axios.post("/api/users/login",this.loginUser)
           .then(res=>{
-            //console.log(res)
             const{token}=res.data
-            //console.log(this.loginUser)
-            //console.log(this.loginUser.type)
             localStorage.setItem("eleToken",token)
             const decoded=jwt_decode(token)
-            //存储到ls
             if(this.loginUser.type=='user'){
             this.$store.dispatch('setAuthenticated',!this.isEmpty(decoded))
             this.$store.dispatch('setUser',decoded)
             this.$router.push('/index')
             }else{
-              //localStorage.setItem("eleTokena",token)
             this.$store.dispatch('setAuthenticated',!this.isEmpty(decoded))
             this.$store.dispatch('setUser',decoded)
             this.$router.push('/adminindex')
             }
-            //存储到token
-            /*const decoded=jwt_decode(token)
-           // console.log(decoded)
-           //token存储到vuex
-            this.$store.dispatch('setAuthenticated',!this.isEmpty(decoded))
-            this.$store.dispatch('setUser',decoded)
-            this.$router.push('/index')*/
           })
         }
       })
@@ -100,9 +84,6 @@ export default {
         (typeof value === "string" && value.trim().length === 0)
       );
     }
-
-
-
   }
 };
 </script>
