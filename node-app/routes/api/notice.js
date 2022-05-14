@@ -12,7 +12,7 @@ router.post('/info', (req, res) => {
         res.json(results);
     }
     a()
-}
+} 
 )
 
 

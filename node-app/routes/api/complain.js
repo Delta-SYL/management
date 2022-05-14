@@ -1,10 +1,11 @@
 const { json } = require('body-parser');
 const express = require('express')
 const router = express.Router();
-const complain = require('../../models/HouseHold');
+const complain = require('../../models/Complain');
 router.post('/test', (req, res) => {
     async function a() {
         var results = await complain.select(Number(req.body.uid))
+        //console.log(results)
         for (var i = results.length - 1; i >= 0; i--){
             switch (results[i].flag) {
                 case 0:

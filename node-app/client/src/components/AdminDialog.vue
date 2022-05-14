@@ -26,7 +26,7 @@
                     </el-form-item>
                     <el-form-item class="text_right">
                         <el-button @click="dialog.show=false">取消</el-button>
-                        <el-button type="primary" @click="onSubmit('form')">处理</el-button>
+                        <el-button type="primary" @click="onSubmit('form')">确认</el-button>
                     </el-form-item>
                 </el-form>
             </div>

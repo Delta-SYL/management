@@ -185,11 +185,14 @@ export default {
   box-sizing: border-box;
   padding-top: 80px;
   background-color: rgba(245, 245, 245, 0.7);
+
   text-align: center;
   color: white;
 }
 .title {
   font-size: 40px;
+  font-family: 宋体;
+  font-weight: bold;
   color: rgb(0, 0, 0);
 }
 .lead {
@@ -202,12 +205,14 @@ export default {
   margin-left: 6%;
   font-size: 40px;
   font-family:宋体;
+  font-weight: bold;
 }
 .noticeb{
   margin-top: 5%;
   margin-left: 1%;
   font-size: 40px;
   font-family:宋体;
+  font-weight: bold;
 }
 .table{
   margin-top: 5%;

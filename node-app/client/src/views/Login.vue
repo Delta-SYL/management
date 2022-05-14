@@ -2,7 +2,7 @@
     <div class="login">
         <section class="form_container">
             <div class="manage_tip">
-                <span class="title">物业管理系统</span>
+                <span class="title">小区物业管理系统</span>
             </div>
             <el-form :model="loginUser" :rules="rules" ref="loginForm" class="loginForm" label-width="60px">
                 <el-form-item label="账号" prop="phone">

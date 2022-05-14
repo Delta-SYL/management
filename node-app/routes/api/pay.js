@@ -3,7 +3,7 @@ const express = require('express')
 const router = express.Router();
 const pay=require('../../models/Pay')
 
-router.post('/test', (req, res) => {
+router.post('/test', (req, res) => { 
     async function a() {
         var results = await pay.select(Number(req.body.uid))
         for (var i = results.length - 1; i >= 0; i--){

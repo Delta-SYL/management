@@ -20,11 +20,11 @@ const admincar = require("./routes/api/admincar")
 const adminnotice = require("./routes/api/adminnotice")
 const adminpay=require("./routes/api/adminpay")
 
-app.use(bodyParser.json({limit: '50mb'}));//使能 post 50mb以下的数据
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.json({limit: '50mb'}))//使能 post 50mb以下的数据
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
 app.use(passport.initialize())
 require("./config/passport")(passport)
-app.use("/api/users", users);
+app.use("/api/users", users)
 app.use("/api/repair",repair)
 app.use("/api/complain", complain)
 app.use("/api/other", other)

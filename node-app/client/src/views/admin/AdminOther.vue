@@ -2,7 +2,7 @@
 <div class="fillContainer">
     <el-row>
     <el-col :span='8'>
-    <p>待处理</p>
+    <p class="sth">待处理</p>
     <div class="table_container">
         <el-table stripe :data="tableDataw" style="width: 100%"  max-height="450" border>
             <el-table-column prop="oid" label="其他事务工单号" width="80" align="center"></el-table-column>
@@ -34,7 +34,7 @@
     </div>
     </el-col>
     <el-col :span='8'>
-    <p>处理中</p>
+    <p class="sth">处理中</p>
     <div class="table_container">
         <el-table stripe :data="tableDatai" style="width: 100%"  max-height="450" border>
             <el-table-column prop="oid" label="其他事务工单号" width="80" align="center"></el-table-column>
@@ -66,7 +66,7 @@
     </div>
     </el-col>
     <el-col :span='8'>
-    <p>已完成</p>
+    <p class="sth">已完成</p>
     <div class="table_container">
         <el-table stripe :data="tableDatac" style="width: 100%"  max-height="450" border>
             <el-table-column prop="oid" label="其他事务工单号" width="80" align="center"></el-table-column>
@@ -316,6 +316,12 @@ export default {
     text-align: right;
     margin-top: 10px;
      float:right;
+}
+.sth{
+    margin-top:20px ;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    font-size: 30px;
 }
 </style>
 

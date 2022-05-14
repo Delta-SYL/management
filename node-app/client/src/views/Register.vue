@@ -2,12 +2,12 @@
   <div class="register">
     <section class="form_container">
       <div class="manage_tip">
-        <span class="title">物业管理系统</span>
+        <span class="title">小区物业管理系统</span>
         <el-form
           :model="registerUser"
-          :rules="rules"
+          :rules="rules" 
           ref="registerForm"
-          label-width="80px"
+          label-width="80px" 
           class="registerForm"
         >
           <el-form-item label="姓名" prop="name">
@@ -29,7 +29,7 @@
             <el-input  v-model="registerUser.idNum" placeholder="请确认密码"></el-input>
         </el-form-item>
         <el-form-item label="具体位置" prop="address">
-            <el-select v-model="registerUser.building" placeholder="栋">
+            <el-select v-model="registerUser.building" placeholder="幢">
                 <el-option label="1" value="1"></el-option>
                 <el-option label="2" value="2"></el-option>
                 <el-option label="3" value="3"></el-option>
@@ -37,7 +37,7 @@
                 <el-option label="5" value="5"></el-option>
                 <el-option label="6" value="6"></el-option>                
             </el-select>
-            <el-select v-model="registerUser.build" placeholder="楼">
+            <el-select v-model="registerUser.build" placeholder="栋">
                 <el-option label="1" value="1"></el-option>
                 <el-option label="2" value="2"></el-option>
                 <el-option label="3" value="3"></el-option>
